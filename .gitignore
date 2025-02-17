@@ -1,0 +1,22 @@
+**/.terraform/*
+
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+
+crash.log
+
+*.tfplan
+
+# Can override this if you want to track NON‑sensitive vars, if using env or cloud vault etc.
+*.tfvars
+*.tfvars.json
+
+# Local override files that are not checked in.
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+.terraform.lock.hcl

@@ -1,11 +1,32 @@
 #cloud-config
+package_reboot_if_required: true
+package_update: true
+package_upgrade: true
+packages:
+  - xe-guest-utilities
+
+hostname: ${hostname}
+create_hostname_file: true
+
+ssh_pwauth: false # global: modifies ssh server
+disable_root: true
+
 users:
   - name: ${username}
-    passwd: ${password}
     groups: sudo
     shell: /bin/bash
+    hashed_passwd: ${password}
+    lock_passwd: false # per user
     ssh_authorized_keys:
       - ${ssh_key}
+  - name: ${ansible_user}
+    gecos: Ansible User
+    groups: users,admin,wheel
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ${ansible_key}
 
 write_files:
   - path: /etc/netplan/50-cloud-init.yaml
@@ -28,3 +49,4 @@ write_files:
 
 runcmd:
   - netplan apply
+  - [systemctl, enable, xe-daemon]

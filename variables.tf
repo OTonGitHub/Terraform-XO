@@ -20,6 +20,8 @@ variable "XOA_PASSWORD" {
   sensitive   = true
 }
 
+
+# Cloud Config for VM
 variable "CC_NAME" {
   description = "Cloud-init config name (saved in XOA)."
   type        = string
@@ -41,37 +43,8 @@ variable "CC_NICNAME" {
   type        = string
 }
 
-variable "VM_IP_ADDRESS" {
-  description = "VM IPv4 address (DHCP4 must be disabled)."
-  type        = string
-}
 
-variable "VM_GATEWAY" {
-  description = "VM IPv4 gateway (check VLAN)."
-  type        = string
-}
-
-variable "POOL_NAME" {
-  description = "XCP-ng pool name."
-  type        = string
-  default     = "GCX-DeepBlue"
-}
-
-variable "UUID_TEMPLATE" {
-  description = "Template UUID for Terraform."
-  type        = string
-}
-
-variable "UUID_NIC" {
-  description = "Physical NIC UUID from the pool."
-  type        = string
-}
-
-variable "UUID_SR" {
-  description = "Storage repository UUID for VM installation."
-  type        = string
-}
-
+# VM Stuff
 variable "VM_HOSTNAME" {
   description = "Hostname for the VM, created by cloud-init."
   type        = string
@@ -84,6 +57,21 @@ variable "VM_NAME" {
 
 variable "VM_DESCRIPTION" {
   description = "Purpose of VM, viewed in XOA"
+  type        = string
+}
+
+variable "VM_IP_ADDRESS" {
+  description = "VM IPv4 address (DHCP4 must be disabled)."
+  type        = string
+}
+
+variable "VM_GATEWAY" {
+  description = "VM IPv4 gateway (check VLAN)."
+  type        = string
+}
+
+variable "VM_POOL_NAME" {
+  description = "XCP-ng pool name."
   type        = string
 }
 
@@ -111,6 +99,25 @@ variable "VM_DISK_NAME" {
   default     = "root-disk"
 }
 
+
+# UUIDS
+variable "UUID_TEMPLATE" {
+  description = "Template UUID for Terraform."
+  type        = string
+}
+
+variable "UUID_NIC" {
+  description = "Physical NIC UUID from the pool."
+  type        = string
+}
+
+variable "UUID_SR" {
+  description = "Storage repository UUID for VM installation."
+  type        = string
+}
+
+
+# KEYS
 variable "SSH_PUB_KEY" {
   description = "Public SSH key for the VM (Cloud-init)."
   type        = string

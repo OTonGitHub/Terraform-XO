@@ -20,7 +20,7 @@ provider "xenorchestra" {
 }
 
 data "xenorchestra_pool" "deepblue" {
-    name_label = var.POOL_NAME
+    name_label = var.VM_POOL_NAME
 }
 
 resource "xenorchestra_cloud_config" "cc" {

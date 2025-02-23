@@ -28,25 +28,5 @@ users:
     ssh_authorized_keys:
       - ${ansible_key}
 
-write_files:
-  - path: /etc/netplan/50-cloud-init.yaml
-    permissions: '0644'
-    content: |
-      network:
-        version: 2
-        ethernets:
-          ${nic}:
-            addresses:
-              - ${ip_address}
-            nameservers:
-              addresses:
-                - 1.1.1.1
-                - 1.0.0.1
-            dhcp4: false
-            routes:
-              - to: "default"
-                via: ${gateway}
-
 runcmd:
-  - netplan apply
   - [systemctl, enable, xe-daemon]

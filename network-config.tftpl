@@ -1,0 +1,16 @@
+# network-config
+network:
+  version: 2
+  ethernets:
+    ${nic}:
+      match:
+        name: e*0
+      set-name: ${nic}
+      addresses:
+        - ${ip_address}
+      nameservers:
+        addresses: [1.1.1.1, 1.0.0.1]
+      dhcp4: false
+      routes:
+        - to: default
+          via: ${gateway}

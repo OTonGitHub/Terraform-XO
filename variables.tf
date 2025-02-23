@@ -20,13 +20,18 @@ variable "XOA_PASSWORD" {
   sensitive   = true
 }
 
-
-# Cloud Config for VM
-variable "CC_NAME" {
+variable "XOA_CLOUD_CONFIG_NAME" {
   description = "Cloud-init config name (saved in XOA)."
   type        = string
 }
 
+variable "XOA_CLOUD_NET_CONFIG_NAME" {
+  description = "Network-config name provided to cloud-init, but saved in XOA cloud config"
+  type        = string
+}
+
+
+# Cloud Config for VM
 variable "CC_UNAME" {
   description = "Cloud-init username for the VM."
   type        = string
@@ -36,11 +41,6 @@ variable "CC_PASWD_HASH" {
   description = "SHA-512 password hash for sudo (use 'openssl passwd -6')."
   type        = string
   sensitive   = true
-}
-
-variable "CC_NICNAME" {
-  description = "NIC name for the Cloud-init VM image."
-  type        = string
 }
 
 
@@ -57,6 +57,11 @@ variable "VM_NAME" {
 
 variable "VM_DESCRIPTION" {
   description = "Purpose of VM, viewed in XOA"
+  type        = string
+}
+
+variable "VM_NICNAME" {
+  description = "NIC name for the Cloud-init VM image."
   type        = string
 }
 

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     xenorchestra = {
       source  = "vatesfr/xenorchestra"
-      # version = "0.29.0"
+      version = "0.29.1"
     }
   }
 }
@@ -11,8 +11,8 @@ provider "xenorchestra" {
   url   = var.XOA_URL
   # If token set, credential signin will fail.
   token = var.XOA_TOKEN # env: XOA_TOKEN
-  username = var.XOA_USER
-  password = var.XOA_PASSWORD
+  # username = var.XOA_USER
+  # password = var.XOA_PASSWORD
 
   # This is false by default and will disable ssl verification if true.
   # This is useful if your deployment uses a self signed certificate but should be used sparingly!
@@ -54,7 +54,14 @@ resource "xenorchestra_vm" "kraken" {
   cloud_config         = xenorchestra_cloud_config.cc.template
   cloud_network_config = xenorchestra_cloud_config.net.template
   affinity_host        = data.xenorchestra_pool.deepblue.master
-  # blocked_operations   = ["destroy"] # works only after provision, else error.
+  blocked_operations   = ["destroy",        # Prevent DELETION -> ON
+                          "clean_reboot",   # Prevent SHUTDOWN -> ON
+                          "clean_shutdown", # Prevent SHUTDOWN -> ON
+                          "hard_reboot",    # Prevent SHUTDOWN -> ON
+                          "hard_shutdown",  # Prevent SHUTDOWN -> ON
+                          "pause",          # Prevent SHUTDOWN -> ON
+                          "shutdown",       # Prevent SHUTDOWN -> ON
+                          "suspend"]        # Prevent SHUTDOWN -> ON
 
   disk {
     sr_id      = var.UUID_SR
